@@ -36,6 +36,8 @@
 /manifest.webmanifest
 /service-worker.js
 /firestore.rules
+/storage.rules
+/firebase.json
 ```
 
 ## Firebase Setup (Beginner Steps)
@@ -45,9 +47,11 @@
 4. Create a **Storage bucket** (default settings are fine).
 5. Copy your Firebase config into `js/firebase.js`.
 6. Deploy the Firestore rules in `firestore.rules`.
-7. Add a curated list of towns in Firestore:
+7. Deploy the Storage rules in `storage.rules`.
+8. Add a curated list of towns in Firestore:
    - `cities/{cityId}` with fields: `name`, `state`, `stateCode`, `lat`, `lng`, `searchTokens`.
-8. To make a user an admin, set `users/{uid}.isAdmin = true`.
+9. Create Firestore composite indexes (see below).
+10. To make a user an admin, set `users/{uid}.isAdmin = true`.
 
 ## Data Model (Key Collections)
 - `users/{uid}`: profile fields, counts, admin flags.
@@ -66,7 +70,21 @@
 - **Admin actions** are UI-driven for MVP; production should add audit logs.
 - **Counts** (likes/comments) are simple integers; large scale should use sharded counters.
 
+## Firestore Composite Indexes (Required)
+Create these indexes in Firestore for the feed queries to work:
+
+1. Collection: `posts`
+   - Fields: `townId` (Ascending), `createdAt` (Descending)
+   - Query usage: Town feed (town posts)
+
+2. Collection: `posts`
+   - Fields: `stateCode` (Ascending), `createdAt` (Descending)
+   - Query usage: Town feed (statewide posts)
+
+3. Collection: `posts`
+   - Fields: `scope` (Ascending), `createdAt` (Descending)
+   - Query usage: Town feed + National feed (national posts)
+
 ## Deployment (GitHub Pages)
 - Place the repo in a GitHub Pages branch (e.g., `main` or `gh-pages`).
 - Make sure paths match `/html/index.html` as the start page.
-
