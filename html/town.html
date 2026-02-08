@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+  Buzzlet Town Feed Page
+  - Shows local, statewide, and national posts for the selected town.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzlet | Town Feed</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="town.html">Buzzlet</a>
+        <nav>
+          <a href="town.html">Town</a>
+          <a href="national.html">National</a>
+          <a href="groups.html">Groups</a>
+          <a href="messages.html">Messages</a>
+          <a href="profile.html">Profile</a>
+          <a href="admin.html" data-admin-link class="hidden">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>Feed</h2>
+        <p id="town-notice" class="notice">Loading local stories...</p>
+        <div id="town-feed">
+          <article class="feed-item">
+            <div class="feed-meta">
+              <span>Buzzlet Newsroom (@buzzlet)</span>
+              <span>•</span>
+              <span>Just now</span>
+              <span class="badge">local</span>
+            </div>
+            <div class="feed-title">Welcome to your town feed</div>
+            <div class="feed-body">
+              This is where neighborhood updates and verified local chatter will appear.
+            </div>
+          </article>
+          <article class="feed-item">
+            <div class="feed-meta">
+              <span>Community Desk (@community)</span>
+              <span>•</span>
+              <span>Today</span>
+              <span class="badge">local</span>
+            </div>
+            <div class="feed-title">Share what’s happening nearby</div>
+            <div class="feed-body">
+              Post trusted tips, local news, and neighborhood questions for your town.
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>Buzzlet — your neighborhood news desk.</footer>
+
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/app.js"></script>
+    <script type="module" src="../js/town.js"></script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+  Buzzlet Login Page
+  - Dedicated login screen for returning users.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzlet | Welcome</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <div class="logo-block" aria-label="Buzzlet logo">BUZZLET</div>
+
+      <section class="auth-card">
+        <h1>Welcome back</h1>
+        <form id="login-form">
+          <label for="login-email">Email</label>
+          <input id="login-email" type="email" required />
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" required />
+          <button type="submit">Log in</button>
+        </form>
+        <p class="auth-error notice notice--danger" id="login-error"></p>
+        <p>
+          <a class="auth-link" href="signup.html">New user? Sign up here</a>
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+  </body>
+</html>
