@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+  Buzzlet Login System
+  - Provides login, signup, and profile completion flow.
+  - Ensures profile fields are collected before entering the app.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzlet | Welcome</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="index.html">Buzzlet</a>
+        <nav>
+          <a href="index.html" class="active">Login</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>Welcome to Buzzlet</h2>
+        <p class="notice">
+          Anyone can view posts, but you must log in to post, react, or message.
+        </p>
+      </section>
+
+      <section class="section grid two">
+        <form id="login-form">
+          <h2>Log In</h2>
+          <label for="login-email">Email</label>
+          <input id="login-email" type="email" required />
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" required />
+          <button type="submit">Log In</button>
+        </form>
+
+        <form id="signup-form">
+          <h2>Sign Up</h2>
+          <label for="signup-email">Email</label>
+          <input id="signup-email" type="email" required />
+          <label for="signup-password">Password</label>
+          <input id="signup-password" type="password" required />
+          <button type="submit">Create Account</button>
+        </form>
+      </section>
+
+      <section id="profile-section" class="section hidden">
+        <h2>Complete Your Profile</h2>
+        <p>Buzzlet requires a complete profile before you can post.</p>
+        <form id="profile-form">
+          <label for="displayName">Display Name</label>
+          <input id="displayName" type="text" required />
+
+          <label for="username">Username (unique)</label>
+          <input id="username" type="text" required />
+
+          <label for="profilePhoto">Profile Photo</label>
+          <input id="profilePhoto" type="file" accept="image/*" required />
+
+          <label for="bio">Bio (optional)</label>
+          <textarea id="bio" rows="3"></textarea>
+
+          <label for="homeTownId">Select Your Town</label>
+          <select id="homeTownId" required>
+            <option value="">Choose a town</option>
+          </select>
+
+          <label for="age">Age (hidden)</label>
+          <input id="age" type="number" min="13" required />
+
+          <button type="submit">Save Profile</button>
+        </form>
+      </section>
+
+      <p id="auth-notice" class="notice"></p>
+    </main>
+
+    <footer>Buzzlet is a local-first social network for real people.</footer>
+
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+  </body>
+</html>
