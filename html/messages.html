@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+  Buzzlet Messages Page
+  - Lists DM threads and allows sending messages.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzlet | Messages</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="town.html">Buzzlet</a>
+        <nav>
+          <a href="town.html">Town</a>
+          <a href="national.html">National</a>
+          <a href="groups.html">Groups</a>
+          <a href="messages.html">Messages</a>
+          <a href="profile.html">Profile</a>
+          <a href="admin.html" data-admin-link class="hidden">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>Direct Messages</h2>
+        <div id="threads-list" class="grid two"></div>
+      </section>
+
+      <section class="section">
+        <h2>Send a Message</h2>
+        <form id="message-form">
+          <label for="thread-id">Thread ID</label>
+          <input id="thread-id" type="text" required />
+          <label for="message-body">Message</label>
+          <textarea id="message-body" rows="3" required></textarea>
+          <button type="submit">Send</button>
+        </form>
+        <p id="messages-notice" class="notice"></p>
+      </section>
+    </main>
+
+    <footer>Buzzlet messages stay private unless reported.</footer>
+
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/app.js"></script>
+    <script type="module" src="../js/messages.js"></script>
+  </body>
+</html>
