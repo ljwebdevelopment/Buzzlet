@@ -11,12 +11,13 @@ import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-
 
 // TODO: Replace with your Firebase project configuration.
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBlr5Zlvj04qFYVHgDO4RN5dhCCvDG5Gbw",
+  authDomain: "buzzlet-4246c.firebaseapp.com",
+  projectId: "buzzlet-4246c",
+  storageBucket: "buzzlet-4246c.firebasestorage.app",
+  messagingSenderId: "659384490910",
+  appId: "1:659384490910:web:f1ed5dc5d54bd39ae6948f",
+  measurementId: "G-S1713Q2CY9"
 };
 
 const app = initializeApp(firebaseConfig);
