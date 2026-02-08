@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+  Buzzlet Groups Page
+  - Lists private but searchable groups and join requests.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzlet | Groups</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="town.html">Buzzlet</a>
+        <nav>
+          <a href="town.html">Town</a>
+          <a href="national.html">National</a>
+          <a href="groups.html">Groups</a>
+          <a href="messages.html">Messages</a>
+          <a href="profile.html">Profile</a>
+          <a href="admin.html" data-admin-link class="hidden">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>Friends Tea Groups</h2>
+        <p id="groups-notice" class="notice">Join a group to share private tea.</p>
+        <div id="groups-list" class="grid two"></div>
+      </section>
+    </main>
+
+    <footer>Buzzlet groups are private but discoverable.</footer>
+
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/app.js"></script>
+    <script type="module" src="../js/groups.js"></script>
+  </body>
+</html>

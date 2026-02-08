@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+  Buzzlet Profile Page
+  - Shows the current user's profile summary.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzlet | Profile</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="town.html">Buzzlet</a>
+        <nav>
+          <a href="town.html">Town</a>
+          <a href="national.html">National</a>
+          <a href="groups.html">Groups</a>
+          <a href="messages.html">Messages</a>
+          <a href="profile.html">Profile</a>
+          <a href="admin.html" data-admin-link class="hidden">Admin</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" id="profile-card"></section>
+      <section class="section">
+        <button id="logout-button" class="secondary" type="button">Log Out</button>
+      </section>
+    </main>
+
+    <footer>Buzzlet profiles keep it real.</footer>
+
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/app.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+    <script type="module" src="../js/profile.js"></script>
+  </body>
+</html>
