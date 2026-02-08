@@ -33,10 +33,6 @@ const signupForm = $("#signup-form");
 const profileForm = $("#profile-form");
 const profileSection = $("#profile-section");
 const authNotice = $("#auth-notice");
-const loginError = $("#login-error");
-const signupError = $("#signup-error");
-
-const currentPage = window.location.pathname.split("/").pop();
 
 const populateCities = async () => {
   const citySelect = $("#homeTownId");
@@ -71,11 +67,9 @@ const handleLogin = async (event) => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    showNotice(loginError, "Logged in! Redirecting...", "success");
-    sessionStorage.setItem("buzzletOnboard", "true");
-    window.location.href = "onboarding.html";
+    showNotice(authNotice, "Logged in! Redirecting...", "success");
   } catch (error) {
-    showNotice(loginError, error.message, "danger");
+    showNotice(authNotice, error.message, "danger");
   }
 };
 
@@ -83,36 +77,12 @@ const handleSignup = async (event) => {
   event.preventDefault();
   const email = $("#signup-email").value.trim();
   const password = $("#signup-password").value.trim();
-  const confirmPassword = $("#signup-confirm-password").value.trim();
-
-  if (password.length < 6) {
-    showNotice(signupError, "Password must be at least 6 characters.", "danger");
-    return;
-  }
-
-  if (password !== confirmPassword) {
-    showNotice(signupError, "Passwords do not match.", "danger");
-    return;
-  }
 
   try {
-    const credential = await createUserWithEmailAndPassword(auth, email, password);
-    await setDoc(
-      doc(db, "users", credential.user.uid),
-      {
-        uid: credential.user.uid,
-        email,
-        profileComplete: false,
-        isAdmin: false,
-        createdAt: new Date().toISOString()
-      },
-      { merge: true }
-    );
-    showNotice(signupError, "Account created! Redirecting...", "success");
-    sessionStorage.setItem("buzzletOnboard", "true");
-    window.location.href = "onboarding.html";
+    await createUserWithEmailAndPassword(auth, email, password);
+    showNotice(authNotice, "Account created! Complete your profile.", "success");
   } catch (error) {
-    showNotice(signupError, error.message, "danger");
+    showNotice(authNotice, error.message, "danger");
   }
 };
 
@@ -150,28 +120,25 @@ const handleProfile = async (event) => {
   await uploadBytes(photoRef, file);
   const photoUrl = await getDownloadURL(photoRef);
 
-  await setDoc(
-    doc(db, "users", user.uid),
-    {
-      uid: user.uid,
-      displayName,
-      username,
-      bio,
-      homeTownId,
-      currentViewingTownId: homeTownId,
-      stateCode: cityData.stateCode || "",
-      townName: cityData.name || "",
-      townState: cityData.state || "",
-      age,
-      profilePhotoUrl: photoUrl,
-      friendsCount: 0,
-      followersCount: 0,
-      verified: false,
-      profileComplete: true,
-      createdAt: new Date().toISOString()
-    },
-    { merge: true }
-  );
+  await setDoc(doc(db, "users", user.uid), {
+    uid: user.uid,
+    displayName,
+    username,
+    bio,
+    homeTownId,
+    currentViewingTownId: homeTownId,
+    stateCode: cityData.stateCode || "",
+    townName: cityData.name || "",
+    townState: cityData.state || "",
+    age,
+    profilePhotoUrl: photoUrl,
+    friendsCount: 0,
+    followersCount: 0,
+    verified: false,
+    isAdmin: false,
+    profileComplete: true,
+    createdAt: new Date().toISOString()
+  });
 
   showNotice(authNotice, "Profile saved!", "success");
   setTimeout(() => {
@@ -187,6 +154,7 @@ const checkProfile = async (user) => {
     await populateCities();
   } else {
     hideProfileForm();
+    window.location.href = "town.html";
   }
 };
 
@@ -204,71 +172,10 @@ if (logoutButton) logoutButton.addEventListener("click", handleLogout);
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    if (currentPage === "index.html" || currentPage === "signup.html") {
-      const needsOnboarding = sessionStorage.getItem("buzzletOnboard") === "true";
-      window.location.href = needsOnboarding ? "onboarding.html" : "town.html";
-      return;
-    }
-    if (currentPage === "profile.html") {
-      checkProfile(user);
-    }
+    checkProfile(user);
   }
 });
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/service-worker.js");
 }
-
-const setupOnboarding = () => {
-  const addButton = $("#add-to-home");
-  const skipButton = $("#skip-home");
-  const banner = $("#onboard-banner");
-  const bannerClose = $("#banner-close");
-  const tip = $("#onboard-tip");
-
-  if (!addButton || !skipButton) return;
-
-  sessionStorage.removeItem("buzzletOnboard");
-
-  let deferredPrompt = null;
-  window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault();
-    deferredPrompt = event;
-  });
-
-  const goToFeed = () => {
-    window.location.href = "town.html";
-  };
-
-  addButton.addEventListener("click", async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      goToFeed();
-      return;
-    }
-
-    showNotice(
-      tip,
-      "On iPhone/iPad, use Share → Add to Home Screen.",
-      "info"
-    );
-    setTimeout(goToFeed, 800);
-  });
-
-  skipButton.addEventListener("click", () => {
-    if (banner) {
-      banner.classList.add("show");
-    }
-    setTimeout(goToFeed, 1000);
-  });
-
-  if (bannerClose) {
-    bannerClose.addEventListener("click", () => {
-      banner?.classList.remove("show");
-    });
-  }
-};
-
-setupOnboarding();

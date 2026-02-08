@@ -7,8 +7,6 @@ const CACHE_NAME = "buzzlet-v1";
 const ASSETS = [
   "/",
   "/html/index.html",
-  "/html/signup.html",
-  "/html/onboarding.html",
   "/html/town.html",
   "/html/national.html",
   "/html/profile.html",

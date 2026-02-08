@@ -34,13 +34,10 @@ const updateAdminNav = async (user) => {
 
 const guardPage = () => {
   const protectedPages = [
-    "town.html",
-    "national.html",
     "profile.html",
     "groups.html",
     "messages.html",
-    "admin.html",
-    "onboarding.html"
+    "admin.html"
   ];
   const current = window.location.pathname.split("/").pop();
   if (!protectedPages.includes(current)) return;
@@ -57,14 +54,6 @@ const guardPage = () => {
       const isAdmin = userDoc.exists() && userDoc.data().isAdmin;
       if (!isAdmin) {
         window.location.href = "town.html";
-      }
-    }
-
-    if (current === "town.html" || current === "national.html") {
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      const profileComplete = userDoc.exists() && userDoc.data().profileComplete;
-      if (!profileComplete) {
-        window.location.href = "profile.html";
       }
     }
   });

@@ -33,8 +33,6 @@ export const showNotice = (element, message, tone = "info") => {
   if (!element) return;
   element.textContent = message;
   element.classList.remove("notice--success", "notice--danger");
-  element.classList.remove("hidden");
-  element.classList.add("visible");
   if (tone === "success") {
     element.classList.add("notice--success");
   }

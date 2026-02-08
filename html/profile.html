@@ -27,35 +27,6 @@
     </header>
 
     <main>
-      <section id="profile-section" class="section hidden">
-        <h2>Complete Your Profile</h2>
-        <p>Buzzlet requires a complete profile before you can post.</p>
-        <form id="profile-form">
-          <label for="displayName">Display Name</label>
-          <input id="displayName" type="text" required />
-
-          <label for="username">Username (unique)</label>
-          <input id="username" type="text" required />
-
-          <label for="profilePhoto">Profile Photo</label>
-          <input id="profilePhoto" type="file" accept="image/*" required />
-
-          <label for="bio">Bio (optional)</label>
-          <textarea id="bio" rows="3"></textarea>
-
-          <label for="homeTownId">Select Your Town</label>
-          <select id="homeTownId" required>
-            <option value="">Choose a town</option>
-          </select>
-
-          <label for="age">Age (hidden)</label>
-          <input id="age" type="number" min="13" required />
-
-          <button type="submit">Save Profile</button>
-        </form>
-        <p id="auth-notice" class="notice"></p>
-      </section>
-
       <section class="section" id="profile-card"></section>
       <section class="section">
         <button id="logout-button" class="secondary" type="button">Log Out</button>

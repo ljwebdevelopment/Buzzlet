@@ -13,11 +13,6 @@ const profileCard = $("#profile-card");
 
 const renderProfile = (profile) => {
   if (!profileCard) return;
-  if (!profile.profileComplete) {
-    profileCard.classList.add("hidden");
-    return;
-  }
-  profileCard.classList.remove("hidden");
   profileCard.innerHTML = `
     <img src="${profile.profilePhotoUrl}" alt="${profile.displayName}" />
     <h2>${profile.displayName} ${profile.verified ? "✅" : ""}</h2>
