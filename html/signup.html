@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+  Buzzlet Sign-up Page
+  - Dedicated registration screen for new users.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzlet | Sign Up</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-layout">
+      <div class="logo-block" aria-label="Buzzlet logo">BUZZLET</div>
+
+      <section class="auth-card">
+        <h1>Create your account</h1>
+        <form id="signup-form">
+          <label for="signup-email">Email</label>
+          <input id="signup-email" type="email" required />
+
+          <label for="signup-password">Password</label>
+          <input id="signup-password" type="password" required />
+
+          <label for="signup-confirm-password">Confirm password</label>
+          <input id="signup-confirm-password" type="password" required />
+
+          <button type="submit">Sign up</button>
+        </form>
+        <p class="auth-error notice notice--danger" id="signup-error"></p>
+        <p>
+          <a class="auth-link" href="index.html">Already have an account? Log in</a>
+        </p>
+      </section>
+    </main>
+
+    <script type="module" src="../js/firebase.js"></script>
+    <script type="module" src="../js/auth.js"></script>
+  </body>
+</html>
