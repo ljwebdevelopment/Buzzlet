@@ -579,64 +579,43 @@ const bindProfileActions = () => {
 };
 
 onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    if (profileCard) {
-      profileCard.innerHTML = `
-        <p>Please log in to view profiles.</p>
-        <button type="button" class="secondary" id="profile-login-button">Go to login</button>
-      `;
-      const loginButton = $("#profile-login-button");
-      if (loginButton) {
-        loginButton.addEventListener("click", () => {
-          window.location.href = "index.html";
-        });
-      }
-    }
-    return;
-  }
+  if (!user) return;
   renderLoading();
   ensureModalRoot();
   setupModalEvents();
 
-  try {
-    state.currentUser = user;
-    const params = new URLSearchParams(window.location.search);
-    state.profileUid = params.get("uid") || user.uid;
+  state.currentUser = user;
+  const params = new URLSearchParams(window.location.search);
+  state.profileUid = params.get("uid") || user.uid;
 
-    const profile = await loadProfileDoc(state.profileUid);
-    if (!profile) {
-      if (profileCard) {
-        profileCard.innerHTML = "<p>Profile not found.</p>";
-      }
-      return;
-    }
-    state.profile = profile;
-
-    if (!params.get("uid")) {
-      window.history.replaceState({}, "", buildProfileUrl(profile.uid));
-    }
-
-    const [followersCount, friendsCount, posts, reposts] = await Promise.all([
-      loadFollowersCount(profile.uid),
-      loadFriendsCount(profile.uid),
-      loadPosts(profile.uid),
-      loadReposts(profile.uid)
-    ]);
-
-    state.stats = {
-      friendsCount,
-      followersCount,
-      postsCount: posts.length
-    };
-    state.posts = posts;
-    state.reposts = reposts;
-    state.activeTab = "posts";
-    state.isFollowing = await checkFollowing();
-    renderProfile();
-  } catch (error) {
+  const profile = await loadProfileDoc(state.profileUid);
+  if (!profile) {
     if (profileCard) {
-      profileCard.innerHTML =
-        "<p>We ran into a problem loading this profile. Please refresh and try again.</p>";
+      profileCard.innerHTML = "<p>Profile not found.</p>";
     }
+    return;
   }
+  state.profile = profile;
+
+  if (!params.get("uid")) {
+    window.history.replaceState({}, "", buildProfileUrl(profile.uid));
+  }
+
+  const [followersCount, friendsCount, posts, reposts] = await Promise.all([
+    loadFollowersCount(profile.uid),
+    loadFriendsCount(profile.uid),
+    loadPosts(profile.uid),
+    loadReposts(profile.uid)
+  ]);
+
+  state.stats = {
+    friendsCount,
+    followersCount,
+    postsCount: posts.length
+  };
+  state.posts = posts;
+  state.reposts = reposts;
+  state.activeTab = "posts";
+  state.isFollowing = await checkFollowing();
+  renderProfile();
 });
