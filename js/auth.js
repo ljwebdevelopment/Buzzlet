@@ -171,6 +171,7 @@ const logoutButton = $("#logout-button");
 if (logoutButton) logoutButton.addEventListener("click", handleLogout);
 
 onAuthStateChanged(auth, (user) => {
+  if (!profileSection) return;
   if (user) {
     checkProfile(user);
   }
